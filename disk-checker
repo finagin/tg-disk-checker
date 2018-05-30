@@ -25,6 +25,9 @@ foreach ($argv as $index => $arg) {
         case 2:
             $token = $arg;
             break;
+        case 3:
+            $server = $arg;
+            break;
         default:
             $users[] = $arg;
     }
@@ -34,10 +37,9 @@ if (disk_free_space('/') - ($size << 30) <= 0 && isset($size, $token, $users) &&
     foreach ($users as $user) {
         httpPost('https://api.telegram.org/bot'.$token.'/sendMessage', [
             'chat_id' => $user,
-            'text' => 'Алёрт! Ахтунг! Память кончается!',
+            'text' => $server.' Алёрт! Ахтунг! Память кончается!',
         ]);
     }
 } else {
     echo 'OK';
 }
-
